@@ -5,7 +5,7 @@ const Constraint = Matter.Constraint;
 
 var engine, world;
 var canvas;
-var palyer, playerBase;
+var player, playerBase;
 var computer, computerBase;
 var playerArrows = []
 
@@ -47,7 +47,7 @@ function setup() {
     computerBase.body.position.y - 180,
     120,
     120
-  );
+  )
   
  
 
@@ -80,7 +80,7 @@ function draw() {
 
  // Use for loop to display arrow using showArrow() function
  for(var i = 0; i < playerArrows.length; i++) {
-  showPlayerArrows(playerArrows[i],i)
+  showArrows(i,playerArrows)
 
 }
 
@@ -93,11 +93,11 @@ function keyPressed() {
     var posY = playerArcher.body.position.y;
     var angle = playerArcher.body.angle+PI/2;
 
-    var arrow = PlayerArrow(posX, posY, 100, 10)
+    var arrow = new PlayerArrow(posX, posY, 100, 10)
 
 
     arrow.trajectory = []
-    Matter.body.setAngle(arrow.body, angle)
+    Matter.Body.setAngle(arrow.body, angle)
     playerArrows.push(arrow);
 
   }
@@ -107,14 +107,19 @@ function keyReleased () {
 
   if(keyCode === 32){
     //call shoot() function for each arrow in an array playerArrows
-    playerArrows[playerArrows.length-1].shoot()
+    //playerArrows[playerArrows.length-1].shoot()
+
+    if (playerArrows.length) {
+      var angle = playerArcher.body.angle+PI/2;
+      playerArrows[playerArrows.length - 1].shoot(angle);
+    }
   }
 
 
 }
 //Display arrow and Tranjectory
 function showArrows(index, arrows) {
-
+  arrows[index].display();
  
 
 }
